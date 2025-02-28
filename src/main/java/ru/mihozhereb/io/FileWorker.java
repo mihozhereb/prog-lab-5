@@ -14,12 +14,12 @@ public class FileWorker implements StringIOWorker {
      * FileWorker class constructor
      *
      * @param path path to the file
-     * @param AppendMode append or write in clear file
+     * @param appendMode append or write in clear file
      */
-    public FileWorker(String path, boolean AppendMode) {
+    public FileWorker(String path, boolean appendMode) {
         try {
             fileReader = new BufferedReader(new FileReader(path));
-            fileWriter = new OutputStreamWriter(new FileOutputStream(path, AppendMode));
+            fileWriter = new OutputStreamWriter(new FileOutputStream(path, appendMode));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

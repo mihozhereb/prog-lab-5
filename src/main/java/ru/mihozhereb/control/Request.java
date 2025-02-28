@@ -6,9 +6,9 @@ import ru.mihozhereb.collection.model.MusicBand;
  * Command name, optional arguments, and a list of {@link MusicBand} objects.
  *
  * @param command
- * @param args
+ * @param argument
  * @param elements
  * @see MusicBand
  */
-public record Request(String command, String[] args, MusicBand[] elements) {
+public record Request(String command, String argument, MusicBand[] elements) {
 }

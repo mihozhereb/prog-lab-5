@@ -1,15 +1,25 @@
 package ru.mihozhereb.io;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import ru.mihozhereb.collection.model.MusicBand;
+import ru.mihozhereb.io.adapters.LocalDateAdapter;
+import ru.mihozhereb.io.adapters.LocalDateTimeAdapter;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * JsonParser for storage file with MusicBands objects in json format
  */
 public class JsonWorker implements IOWorker<MusicBand[]> {
     private final String path;
+    private static final Gson GSON = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+            .create();
 
     public JsonWorker(String path) {
         this.path = path;
@@ -21,11 +31,10 @@ public class JsonWorker implements IOWorker<MusicBand[]> {
      */
     @Override
     public void write(MusicBand[] elements) {
-        Gson gson = new Gson();
-        JsonBase base = new JsonBase(elements);
-
-        FileWorker fileWorker = new FileWorker(path, false);
-        fileWorker.write(gson.toJson(base));
+        try (FileWorker fileWorker = new FileWorker(path, false)) {
+            JsonBase base = new JsonBase(elements);
+            fileWorker.write(GSON.toJson(base));
+        }
     }
 
     /**
@@ -33,11 +42,9 @@ public class JsonWorker implements IOWorker<MusicBand[]> {
      */
     @Override
     public MusicBand[] read() {
-        Gson gson = new Gson();
-
-        FileWorker fileWorker = new FileWorker(path, true);
-
-        return gson.fromJson(fileWorker.readAll(), JsonBase.class).elements();
+        try (FileWorker fileWorker = new FileWorker(path, true)) {
+            return GSON.fromJson(fileWorker.readAll(), JsonBase.class).elements();
+        }
     }
 
     /**

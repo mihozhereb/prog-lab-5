@@ -66,12 +66,6 @@ public class MusicBand implements Comparable<MusicBand> {
 
     {
         creationDate = LocalDateTime.now();
-
-        try {
-            id = IdGenerator.getInstance().getNewId();
-        } catch (IOException e) {
-            id = -1;
-        }
     }
 
     /**
@@ -81,6 +75,13 @@ public class MusicBand implements Comparable<MusicBand> {
      */
     public Integer getId() {
         return id;
+    }
+
+    /**
+     * Set MusicBand's ID
+     */
+    public void setId() {
+        id = IdGenerator.getInstance().getNewId();
     }
 
     /**

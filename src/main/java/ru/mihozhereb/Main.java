@@ -10,18 +10,22 @@ public final class Main {
     }
 
     private void run(final String... args) {
-        // set path to file that contains collection's items and load it
-        String path = "default_path";
+        // set storagePath to file that contains collection's items and load it
+        // TODO поменять путь
+        String storagePath = "C:\\Users\\user\\Downloads\\test123.json";
         if (args.length == 1) {
-            path = args[0];
+            storagePath = args[0];
         }
-        CollectionManager.getInstance().setPath(path);
+        CollectionManager.getInstance().setPath(storagePath);
         CollectionManager.getInstance().load();
 
-        ConsoleWorker consoleWorker = new ConsoleWorker();
-
-        while (consoleWorker.ready()) {
-            consoleWorker.write(Handler.handle(consoleWorker.read()));
+        try (ConsoleWorker consoleWorker = new ConsoleWorker()) {
+            String line;
+            while ((line = consoleWorker.read()) != null) {
+                consoleWorker.write(Handler.handle(line));
+            }
         }
     }
 }
+// TODO закончить роутер и хендлер, добавить команды, сделать работу со скриптом из файла, закончить коменты под javadoc
+// TODO сделать интерактивный ввод объекта и его валидацию

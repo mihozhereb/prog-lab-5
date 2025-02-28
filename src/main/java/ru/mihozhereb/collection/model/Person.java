@@ -1,5 +1,7 @@
 package ru.mihozhereb.collection.model;
 
+import java.util.Objects;
+
 /**
  * Person class
  */
@@ -65,6 +67,31 @@ public class Person {
         this.name = name;
     }
 
+    // TODO: закончить сеттеры и геттеры
 
-    // TODO: закончить сеттеры и геттеры и прочую хуйню
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return weight == person.weight && Objects.equals(name, person.name) &&
+                Objects.equals(birthday, person.birthday) &&
+                Objects.equals(height, person.height) && hairColor == person.hairColor;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, birthday, height, weight, hairColor);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", birthday=" + birthday +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", hairColor=" + hairColor +
+                '}';
+    }
 }

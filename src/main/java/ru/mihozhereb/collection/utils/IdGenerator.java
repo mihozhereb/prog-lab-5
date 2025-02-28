@@ -1,6 +1,6 @@
 package ru.mihozhereb.collection.utils;
 
-import java.io.IOException;
+import ru.mihozhereb.io.FileWorker;
 
 /**
  * ID generator class
@@ -8,7 +8,7 @@ import java.io.IOException;
  * Used singleton pattern
  */
 public final class IdGenerator {
-    private IdGenerator() throws IOException {  }
+    private IdGenerator() {  }
 
     /**
      * The only one instance of IdGenerator
@@ -19,7 +19,7 @@ public final class IdGenerator {
      * Return instance of {@code IdGenerator}
      * @return IdGenerator instance
      */
-    public static IdGenerator getInstance() throws IOException {
+    public static IdGenerator getInstance() {
         if (instance == null) {
             instance = new IdGenerator();
         }
@@ -27,7 +27,18 @@ public final class IdGenerator {
     }
 
     public int getNewId() {
-        // TODO
-        return -1;
+        // TODO поменять путь
+        String path = "C:\\Users\\user\\Desktop\\дз\\прога\\prog-lab-5\\src\\main\\java\\ru\\mihozhereb\\" +
+                "collection\\utils\\ID_LOG";
+        int previousId;
+        try (FileWorker fileWorker = new FileWorker(path, true)) {
+            previousId = Integer.parseInt(fileWorker.read());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+        try (FileWorker fileWorker = new FileWorker(path, false)) {
+            fileWorker.write(String.valueOf(previousId + 1));
+            return previousId + 1;
+        }
     }
 }
