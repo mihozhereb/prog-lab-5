@@ -7,8 +7,8 @@ import ru.mihozhereb.collection.model.MusicBand;
  *
  * @param command
  * @param argument
- * @param elements
+ * @param element
  * @see MusicBand
  */
-public record Request(String command, String argument, MusicBand[] elements) {
+public record Request(String command, String argument, MusicBand element) {
 }

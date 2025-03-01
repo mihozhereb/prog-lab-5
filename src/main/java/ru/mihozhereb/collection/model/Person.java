@@ -1,5 +1,6 @@
 package ru.mihozhereb.collection.model;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -93,5 +94,48 @@ public class Person {
                 ", weight=" + weight +
                 ", hairColor=" + hairColor +
                 '}';
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        if (birthday == null) {
+            throw new IllegalArgumentException("Person's birthday can't be null");
+        }
+        this.birthday = birthday;
+    }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        if (height == null) {
+            throw new IllegalArgumentException("Height can't be null");
+        } else if (height > 0) {
+            throw new IllegalArgumentException("Height can't be greater than 0");
+        }
+        this.height = height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        if (weight > 0) {
+            throw new IllegalArgumentException("Weight can't be greater than 0");
+        }
+        this.weight = weight;
+    }
+
+    public Color getHairColor() {
+        return hairColor;
+    }
+
+    public void setHairColor(Color hairColor) {
+        this.hairColor = hairColor;
     }
 }

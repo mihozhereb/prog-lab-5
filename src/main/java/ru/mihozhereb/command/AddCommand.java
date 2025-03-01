@@ -9,7 +9,7 @@ public class AddCommand implements Command {
      *
      */
     @Override
-    public Response execute() {
+    public Response execute(Request r) {
         return new Response(null, null);
     }
 
@@ -18,6 +18,6 @@ public class AddCommand implements Command {
      */
     @Override
     public String getHelp() {
-        return "";
+        return "add {element} | add element in collection";
     }
 }

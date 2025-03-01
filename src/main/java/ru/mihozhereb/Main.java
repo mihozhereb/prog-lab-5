@@ -12,7 +12,7 @@ public final class Main {
     private void run(final String... args) {
         // set storagePath to file that contains collection's items and load it
         // TODO поменять путь
-        String storagePath = "C:\\Users\\user\\Downloads\\test123.json";
+        String storagePath = "C:\\Users\\pro\\Downloads\\test123.json";
         if (args.length == 1) {
             storagePath = args[0];
         }
@@ -27,5 +27,4 @@ public final class Main {
         }
     }
 }
-// TODO закончить роутер и хендлер, добавить команды, сделать работу со скриптом из файла, закончить коменты под javadoc
-// TODO сделать интерактивный ввод объекта и его валидацию
+// TODO добавить команды, сделать работу со скриптом из файла, закончить коменты под javadoc

@@ -4,26 +4,43 @@ import ru.mihozhereb.command.AddCommand;
 import ru.mihozhereb.command.Command;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 // TODO
 /**
  * Router class
  */
 public class Router {
-    static HashMap<String, Command> commands = new HashMap<>();
+    private static final Map<String, Command> COMMANDS = new HashMap<>();
 
     static {
-        commands.put("add", new AddCommand());
+        COMMANDS.put("add", new AddCommand());
     }
 
 
     public static Response route(Request r) {
-        Command command = commands.get(r.command());
-        command.execute();
-        return new Response("test message", null);
+        Command command = COMMANDS.get(r.command());
+
+        if (r.command().equals("help")) {
+            return new Response(helpCommand(), null);
+        } else if (command == null) {
+            return new Response("Command not found.", null);
+        }
+
+        Response resp = command.execute(r);
+        return resp;
     }
 
-    private String HelpCommand() {
-        return "";
+    private static String helpCommand() {
+        StringBuilder helpText = new StringBuilder();
+
+        helpText.append("HELP | COMMANDS:").append(System.lineSeparator());
+
+        for (Command i : COMMANDS.values()) {
+            helpText.append(i.getHelp()).append(System.lineSeparator());
+        }
+
+        return helpText.toString();
     }
 }

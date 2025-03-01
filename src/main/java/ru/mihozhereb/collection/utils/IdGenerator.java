@@ -28,8 +28,7 @@ public final class IdGenerator {
 
     public int getNewId() {
         // TODO поменять путь
-        String path = "C:\\Users\\user\\Desktop\\дз\\прога\\prog-lab-5\\src\\main\\java\\ru\\mihozhereb\\" +
-                "collection\\utils\\ID_LOG";
+        String path = "src/main/java/ru/mihozhereb/collection/utils/ID_LOG";
         int previousId;
         try (FileWorker fileWorker = new FileWorker(path, true)) {
             previousId = Integer.parseInt(fileWorker.read());
