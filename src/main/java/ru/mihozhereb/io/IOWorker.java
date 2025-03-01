@@ -5,7 +5,7 @@ public interface IOWorker<T> extends AutoCloseable {
 
     T read();
 
-    Boolean ready();
+    boolean ready();
 
     void close();
 }

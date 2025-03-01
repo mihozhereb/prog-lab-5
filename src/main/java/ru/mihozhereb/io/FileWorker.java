@@ -71,7 +71,7 @@ public class FileWorker implements StringIOWorker {
      * @return Ready or not to be read, and false, if throw IOException
      */
     @Override
-    public Boolean ready() {
+    public boolean ready() {
         try {
             return fileReader.ready();
         } catch (IOException ignored) {

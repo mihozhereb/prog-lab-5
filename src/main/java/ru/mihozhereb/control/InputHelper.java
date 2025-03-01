@@ -16,12 +16,19 @@ public class InputHelper {
         this.musicBand.setFrontMan(new Person());
     }
 
-    private void inputName() {
+    private String getConsoleInput() throws InputCancelledException {
+        String text = consoleWorker.read();
+        if (text == null) {
+            throw new InputCancelledException("Input is cancelled.");
+        }
+        return text;
+    }
+
+    private void inputName() throws InputCancelledException {
         while (true) {
             consoleWorker.writeLn("Enter MusicBand's name: ");
-            String name = consoleWorker.read();
             try {
-                musicBand.setName(name);
+                musicBand.setName(getConsoleInput());
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
                 continue;
@@ -30,12 +37,11 @@ public class InputHelper {
         }
     }
 
-    private void inputX() {
+    private void inputX() throws InputCancelledException {
         while (true) {
             consoleWorker.writeLn("Enter MusicBand's X coordinate: ");
-            String x = consoleWorker.read();
             try {
-                musicBand.getCoordinates().setX(Double.valueOf(x));
+                musicBand.getCoordinates().setX(Double.valueOf(getConsoleInput()));
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
                 continue;
@@ -44,12 +50,11 @@ public class InputHelper {
         }
     }
 
-    private void inputY() {
+    private void inputY() throws InputCancelledException {
         while (true) {
             consoleWorker.writeLn("Enter MusicBand's Y coordinate: ");
-            String y = consoleWorker.read();
             try {
-                musicBand.getCoordinates().setY(Float.valueOf(y));
+                musicBand.getCoordinates().setY(Float.valueOf(getConsoleInput()));
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
                 continue;
@@ -58,12 +63,11 @@ public class InputHelper {
         }
     }
 
-    private void inputNumberOfParticipants() {
+    private void inputNumberOfParticipants() throws InputCancelledException {
         while (true) {
             consoleWorker.writeLn("Enter MusicBand's number of participants: ");
-            String numberOfParticipant = consoleWorker.read();
             try {
-                musicBand.setNumberOfParticipants(Long.parseLong(numberOfParticipant));
+                musicBand.setNumberOfParticipants(Long.parseLong(getConsoleInput()));
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
                 continue;
@@ -72,13 +76,12 @@ public class InputHelper {
         }
     }
 
-    private void inputGenre() {
+    private void inputGenre() throws InputCancelledException {
         while (true) {
             String options = Arrays.toString(MusicGenre.values());
             consoleWorker.writeLn("Enter MusicBand's genre " + options + ": ");
-            String genre = consoleWorker.read();
             try {
-                musicBand.setGenre(MusicGenre.valueOf(genre));
+                musicBand.setGenre(MusicGenre.valueOf(getConsoleInput()));
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
                 continue;
@@ -87,12 +90,11 @@ public class InputHelper {
         }
     }
 
-    private void inputFrontManName() {
+    private void inputFrontManName() throws InputCancelledException {
         while (true) {
             consoleWorker.writeLn("Enter FrontMan's name: ");
-            String name = consoleWorker.read();
             try {
-                musicBand.getFrontMan().setName(name);
+                musicBand.getFrontMan().setName(getConsoleInput());
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
                 continue;
@@ -101,12 +103,11 @@ public class InputHelper {
         }
     }
 
-    private void inputBirthday() {
+    private void inputBirthday() throws InputCancelledException {
         while (true) {
             consoleWorker.writeLn("Enter FrontMan's birthday (format year-month-day xxxx-xx-xx): ");
-            String birthday = consoleWorker.read();
             try {
-                musicBand.getFrontMan().setBirthday(LocalDate.parse(birthday));
+                musicBand.getFrontMan().setBirthday(LocalDate.parse(getConsoleInput()));
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
                 continue;
@@ -115,12 +116,11 @@ public class InputHelper {
         }
     }
 
-    private void inputHeight() {
+    private void inputHeight() throws InputCancelledException {
         while (true) {
             consoleWorker.writeLn("Enter FrontMan's height: ");
-            String height = consoleWorker.read();
             try {
-                musicBand.getFrontMan().setHeight(Double.valueOf(height));
+                musicBand.getFrontMan().setHeight(Double.valueOf(getConsoleInput()));
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
                 continue;
@@ -129,12 +129,11 @@ public class InputHelper {
         }
     }
 
-    private void inputWeight() {
+    private void inputWeight() throws InputCancelledException {
         while (true) {
             consoleWorker.writeLn("Enter FrontMan's weight: ");
-            String weight = consoleWorker.read();
             try {
-                musicBand.getFrontMan().setWeight(Integer.parseInt(weight));
+                musicBand.getFrontMan().setWeight(Integer.parseInt(getConsoleInput()));
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
                 continue;
@@ -143,13 +142,12 @@ public class InputHelper {
         }
     }
 
-    private void inputHairColor() {
+    private void inputHairColor() throws InputCancelledException {
         while (true) {
             String options = Arrays.toString(Color.values());
             consoleWorker.writeLn("Enter FrontMan's hair color " + options + ": ");
-            String hairColor = consoleWorker.read();
             try {
-                musicBand.getFrontMan().setHairColor(Color.valueOf(hairColor));
+                musicBand.getFrontMan().setHairColor(Color.valueOf(getConsoleInput()));
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
                 continue;
@@ -158,7 +156,7 @@ public class InputHelper {
         }
     }
 
-    public MusicBand input() {
+    public MusicBand input() throws InputCancelledException {
         inputName();
         inputX();
         inputY();

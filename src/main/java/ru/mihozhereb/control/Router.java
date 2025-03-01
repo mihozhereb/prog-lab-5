@@ -1,11 +1,9 @@
 package ru.mihozhereb.control;
 
-import ru.mihozhereb.command.AddCommand;
-import ru.mihozhereb.command.Command;
+import ru.mihozhereb.command.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 // TODO
 /**
@@ -16,6 +14,11 @@ public class Router {
 
     static {
         COMMANDS.put("add", new AddCommand());
+        COMMANDS.put("show", new ShowCommand());
+        COMMANDS.put("info", new InfoCommand());
+        COMMANDS.put("update", new UpdateCommand());
+        COMMANDS.put("remove_by_id", new RemoveByIdCommand());
+        COMMANDS.put("clear", new ClearCommand());
     }
 
 
@@ -24,12 +27,13 @@ public class Router {
 
         if (r.command().equals("help")) {
             return new Response(helpCommand(), null);
-        } else if (command == null) {
+        }
+
+        if (command == null) {
             return new Response("Command not found.", null);
         }
 
-        Response resp = command.execute(r);
-        return resp;
+        return command.execute(r);
     }
 
     private static String helpCommand() {

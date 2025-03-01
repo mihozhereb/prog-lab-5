@@ -20,6 +20,7 @@ public final class Main {
         CollectionManager.getInstance().load();
 
         try (ConsoleWorker consoleWorker = new ConsoleWorker()) {
+            consoleWorker.writeLn("Welcome!");
             String line;
             while ((line = consoleWorker.read()) != null) {
                 consoleWorker.write(Handler.handle(line));

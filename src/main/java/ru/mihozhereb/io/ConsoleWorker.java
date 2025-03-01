@@ -51,7 +51,7 @@ public class ConsoleWorker implements StringIOWorker {
      * @return Ready or not to be read, and false, if throw IOException
      */
     @Override
-    public Boolean ready() {
+    public boolean ready() {
         try {
             return consoleReader.ready();
         } catch (IOException ignored) {

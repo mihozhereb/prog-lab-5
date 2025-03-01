@@ -3,6 +3,7 @@ package ru.mihozhereb.collection;
 import ru.mihozhereb.collection.model.MusicBand;
 import ru.mihozhereb.io.JsonWorker;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -12,6 +13,7 @@ import java.util.TreeSet;
 public final class CollectionManager {
     private static final TreeSet<MusicBand> COLLECTION = new TreeSet<MusicBand>();
     private static String path;
+    private static final LocalDateTime creationDateTime = LocalDateTime.now();
 
     private CollectionManager() {  }
 
@@ -53,5 +55,9 @@ public final class CollectionManager {
 
     public void setPath(String newPath) {
         path = newPath;
+    }
+
+    public LocalDateTime getCreationDateTime() {
+        return creationDateTime;
     }
 }

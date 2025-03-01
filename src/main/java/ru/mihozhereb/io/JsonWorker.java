@@ -51,7 +51,7 @@ public class JsonWorker implements IOWorker<MusicBand[]> {
      * @return Good or bad json file
      */
     @Override
-    public Boolean ready() {
+    public boolean ready() {
         File file = new File(path);
         return !file.isDirectory() && file.exists() && file.canRead() && file.canWrite();
     }
@@ -62,5 +62,10 @@ public class JsonWorker implements IOWorker<MusicBand[]> {
     @Override
     public void close() {
 
+    }
+
+    public static String toJsonFormat(MusicBand[] elements) {
+        JsonBase base = new JsonBase(elements);
+        return GSON.toJson(base);
     }
 }
