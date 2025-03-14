@@ -9,16 +9,16 @@ public class Coordinates {
     /**
      * X coordinate
      *
-     * @restriction Значение поля должно быть больше -823
-     * @restriction Поле не может быть null
+     * @restriction The field value must be greater than -823
+     * @restriction The field can't be null
      */
     private Double x;
 
     /**
      * Y coordinate
      *
-     * @restriction Максимальное значение поля: 752
-     * @restriction Поле не может быть null
+     * @restriction Maximum field value: 752
+     * @restriction The field can't be null
      */
     private Float y;
 
@@ -36,13 +36,13 @@ public class Coordinates {
      * set X coordinate
      *
      * @param x X coordinate
-     * @throws IllegalArgumentException X can't be null and less or equal than -823
+     * @throws IllegalArgumentException X can't be null and must be greater than -823
      */
     public void setX(Double x) {
         if (x == null) {
             throw new IllegalArgumentException("X can't be null");
         } else if (x <= -823) {
-            throw new IllegalArgumentException("X can't be less or equal than -823");
+            throw new IllegalArgumentException("X must be greater than -823");
         }
         this.x = x;
     }
@@ -59,13 +59,13 @@ public class Coordinates {
     /**
      * set Y coordinate
      * @param y Y coordinate
-     * @throws IllegalArgumentException X can't be null and greater than 752
+     * @throws IllegalArgumentException X can't be null and must be less than 752
      */
     public void setY(Float y) {
         if (y == null) {
             throw new IllegalArgumentException("Y can't be null");
         } else if (y > 752) {
-            throw new IllegalArgumentException("Y can't be greater than 752");
+            throw new IllegalArgumentException("Y must be less than 752");
         }
         this.y = y;
     }
@@ -84,7 +84,8 @@ public class Coordinates {
     }
 
     /**
-     * Returns a string representation of the {@code Coordinates} object.
+     * Returns a string representation of the executes the command with arguments from the request and returns the
+     * result in the response object.
      * <p>
      * The string includes the {@code x} and {@code y} coordinates, formatted in a compact style.
      * </p>

@@ -11,14 +11,19 @@ import java.util.TreeSet;
  * CollectionManager singleton class
  */
 public final class CollectionManager {
-    private static final TreeSet<MusicBand> COLLECTION = new TreeSet<MusicBand>();
+    private static final TreeSet<MusicBand> COLLECTION = new TreeSet<>();
     private static String path;
-    private static final LocalDateTime creationDateTime = LocalDateTime.now();
+    private static final LocalDateTime CREATION_DATE_TIME = LocalDateTime.now();
 
     private CollectionManager() {  }
 
     private static CollectionManager instance;
 
+    /**
+     * Return instance of {@code CollectionManager}
+     *
+     * @return CollectionManager instance
+     */
     public static CollectionManager getInstance() {
         if (instance == null) {
             instance = new CollectionManager();
@@ -26,10 +31,18 @@ public final class CollectionManager {
         return instance;
     }
 
+    /**
+     * Return collection of {@code MusicBand}
+     *
+     * @return MusicBand's collection
+     */
     public TreeSet<MusicBand> getCollection() {
         return COLLECTION;
     }
 
+    /**
+     * Load collection from file
+     */
     public void load() {
         try (JsonWorker storage = new JsonWorker(path)) {
             if (storage.ready()) {
@@ -43,6 +56,9 @@ public final class CollectionManager {
         }
     }
 
+    /**
+     * Save collection in file (json format)
+     */
     public void save() {
         try (JsonWorker storage = new JsonWorker(path)) {
             if (storage.ready()) {
@@ -53,11 +69,20 @@ public final class CollectionManager {
         }
     }
 
+    /**
+     * Set new path to back up file
+     * @param newPath new path
+     */
     public void setPath(String newPath) {
         path = newPath;
     }
 
+    /**
+     * Return date and time of init {@code CollectionManager}
+     *
+     * @return CREATION_DATE_TIME
+     */
     public LocalDateTime getCreationDateTime() {
-        return creationDateTime;
+        return CREATION_DATE_TIME;
     }
 }

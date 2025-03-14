@@ -4,16 +4,16 @@ import ru.mihozhereb.collection.CollectionManager;
 import ru.mihozhereb.control.Request;
 import ru.mihozhereb.control.Response;
 
-public class ClearCommand implements Command {
+public class RemoveLowerCommand implements Command {
     @Override
     public Response execute(Request r) {
-        CollectionManager.getInstance().getCollection().clear();
+        CollectionManager.getInstance().getCollection().removeIf(i -> r.element().compareTo(i) < 0);
 
         return new Response("Done.", null);
     }
 
     @Override
     public String getHelp() {
-        return "clear | clear collection";
+        return "remove_lower {element} | remove from the collection all items smaller than the specified value";
     }
 }

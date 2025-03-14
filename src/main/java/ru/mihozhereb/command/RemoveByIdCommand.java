@@ -5,10 +5,6 @@ import ru.mihozhereb.control.Request;
 import ru.mihozhereb.control.Response;
 
 public class RemoveByIdCommand implements Command {
-    /**
-     * @param r
-     * @return
-     */
     @Override
     public Response execute(Request r) {
         CollectionManager c = CollectionManager.getInstance();
@@ -21,12 +17,9 @@ public class RemoveByIdCommand implements Command {
         }
 
         c.getCollection().removeIf(n -> n.getId().equals(id));
-        return new Response("Done", null);
+        return new Response("Done.", null);
     }
 
-    /**
-     * @return
-     */
     @Override
     public String getHelp() {
         return "remove_by_id id | remove element where id = id";

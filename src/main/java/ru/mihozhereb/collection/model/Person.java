@@ -10,37 +10,37 @@ public class Person {
     /**
      * Person's name
      *
-     * @restriction Поле не может быть null
-     * @restriction Строка не может быть пустой
+     * @restriction The field can't be null
+     * @restriction The string can't be empty
      */
     private String name;
 
     /**
      * Person's birthday
      *
-     * @restriction Поле не может быть null
+     * @restriction The field can't be null
      */
     private java.time.LocalDate birthday;
 
     /**
      * Person's height
      *
-     * @restriction Поле может быть null
-     * @restriction Значение поля должно быть больше 0
+     * @restriction The field can be null
+     * @restriction The field value must be greater than 0
      */
     private Double height;
 
     /**
      * Person's weight
      *
-     * @restriction Значение поля должно быть больше 0
+     * @restriction The field value must be greater than 0
      */
     private int weight;
 
     /**
      * Person's hairColor
      *
-     * @restriction Поле может быть null
+     * @restriction The field can be null
      */
     private Color hairColor;
 
@@ -68,7 +68,89 @@ public class Person {
         this.name = name;
     }
 
-    // TODO: закончить сеттеры и геттеры
+    /**
+     * Get Person's birthday
+     *
+     * @return Person's birthday
+     */
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    /**
+     * Set Person's birthday
+     *
+     * @param birthday Person's birthday
+     * @throws IllegalArgumentException Person's birthday can't be null
+     */
+    public void setBirthday(LocalDate birthday) {
+        if (birthday == null) {
+            throw new IllegalArgumentException("Person's birthday can't be null");
+        }
+        this.birthday = birthday;
+    }
+
+    /**
+     * Get Person's height
+     *
+     * @return Person's height
+     */
+    public Double getHeight() {
+        return height;
+    }
+
+    /**
+     * Set Person's height
+     *
+     * @param height Person's height
+     * @throws IllegalArgumentException Person's height must be greater than 0
+     */
+    public void setHeight(Double height) {
+        if (height <= 0) {
+            throw new IllegalArgumentException("Person's height must be greater than 0");
+        }
+        this.height = height;
+    }
+
+    /**
+     * Get Person's weight
+     *
+     * @return Person's weight
+     */
+    public int getWeight() {
+        return weight;
+    }
+
+    /**
+     * Set Person's weight
+     *
+     * @param weight Person's weight
+     * @throws IllegalArgumentException Person's weight must be greater than 0
+     */
+    public void setWeight(int weight) {
+        if (weight <= 0) {
+            throw new IllegalArgumentException("Person's weight must be greater than 0");
+        }
+        this.weight = weight;
+    }
+
+    /**
+     * Get Person's hair color
+     *
+     * @return Person's hair color
+     */
+    public Color getHairColor() {
+        return hairColor;
+    }
+
+    /**
+     * Set Person's hair color
+     *
+     * @param hairColor Person's hair color
+     */
+    public void setHairColor(Color hairColor) {
+        this.hairColor = hairColor;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -94,48 +176,5 @@ public class Person {
                 ", weight=" + weight +
                 ", hairColor=" + hairColor +
                 '}';
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        if (birthday == null) {
-            throw new IllegalArgumentException("Person's birthday can't be null");
-        }
-        this.birthday = birthday;
-    }
-
-    public Double getHeight() {
-        return height;
-    }
-
-    public void setHeight(Double height) {
-        if (height == null) {
-            throw new IllegalArgumentException("Height can't be null");
-        } else if (height > 0) {
-            throw new IllegalArgumentException("Height can't be greater than 0");
-        }
-        this.height = height;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        if (weight > 0) {
-            throw new IllegalArgumentException("Weight can't be greater than 0");
-        }
-        this.weight = weight;
-    }
-
-    public Color getHairColor() {
-        return hairColor;
-    }
-
-    public void setHairColor(Color hairColor) {
-        this.hairColor = hairColor;
     }
 }

@@ -9,6 +9,7 @@ import ru.mihozhereb.io.adapters.LocalDateTimeAdapter;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * JsonParser for storage file with MusicBands objects in json format
@@ -64,8 +65,14 @@ public class JsonWorker implements IOWorker<MusicBand[]> {
 
     }
 
-    public static String toJsonFormat(MusicBand[] elements) {
-        JsonBase base = new JsonBase(elements);
+    /**
+     * Generate string of beauty json data
+     *
+     * @param elements List of {@code MusicBand} elements
+     * @return Beauty string
+     */
+    public static String toJsonFormat(List<MusicBand> elements) {
+        JsonBase base = new JsonBase(elements.toArray(new MusicBand[]{}));
         return GSON.toJson(base);
     }
 }

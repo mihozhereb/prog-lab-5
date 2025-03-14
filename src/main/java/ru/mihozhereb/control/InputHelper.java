@@ -4,8 +4,14 @@ import ru.mihozhereb.collection.model.*;
 import ru.mihozhereb.io.ConsoleWorker;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
+/**
+ * Builder class of {@code MusicBand} object
+ * <p>
+ * Collect user input and validate the data
+ */
 public class InputHelper {
     private final ConsoleWorker consoleWorker = new ConsoleWorker();
     private final MusicBand musicBand;
@@ -63,6 +69,19 @@ public class InputHelper {
         }
     }
 
+    private void inputCreationDate() throws InputCancelledException {
+        while (true) {
+            consoleWorker.writeLn("Enter MusicBand's creation date (format 2007-12-03T10:15:30): ");
+            try {
+                musicBand.setCreationDate(LocalDateTime.parse(getConsoleInput()));
+            } catch (IllegalArgumentException e) {
+                consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
+                continue;
+            }
+            break;
+        }
+    }
+
     private void inputNumberOfParticipants() throws InputCancelledException {
         while (true) {
             consoleWorker.writeLn("Enter MusicBand's number of participants: ");
@@ -105,7 +124,7 @@ public class InputHelper {
 
     private void inputBirthday() throws InputCancelledException {
         while (true) {
-            consoleWorker.writeLn("Enter FrontMan's birthday (format year-month-day xxxx-xx-xx): ");
+            consoleWorker.writeLn("Enter FrontMan's birthday (format 2007-12-03): ");
             try {
                 musicBand.getFrontMan().setBirthday(LocalDate.parse(getConsoleInput()));
             } catch (IllegalArgumentException e) {
@@ -156,10 +175,17 @@ public class InputHelper {
         }
     }
 
+    /**
+     * Collect all data from user
+     *
+     * @return built MusicBand object
+     * @throws InputCancelledException If user cancel input
+     */
     public MusicBand input() throws InputCancelledException {
         inputName();
         inputX();
         inputY();
+        inputCreationDate();
         inputNumberOfParticipants();
         inputGenre();
         inputFrontManName();

@@ -3,7 +3,7 @@ package ru.mihozhereb.control;
 import ru.mihozhereb.collection.model.MusicBand;
 
 /**
- * Command name, optional arguments, and a list of {@link MusicBand} objects.
+ * Command name, optional argument, and a {@link MusicBand} object.
  *
  * @param command
  * @param argument

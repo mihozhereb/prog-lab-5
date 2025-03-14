@@ -5,14 +5,15 @@ import ru.mihozhereb.control.Handler;
 import ru.mihozhereb.io.ConsoleWorker;
 
 public final class Main {
+    private static final String DEFAULT_STORAGE_PATH = "storage.json";
+
     public static void main(final String... args) {
         new Main().run(args);
     }
 
     private void run(final String... args) {
         // set storagePath to file that contains collection's items and load it
-        // TODO поменять путь
-        String storagePath = "C:\\Users\\pro\\Downloads\\test123.json";
+        String storagePath = DEFAULT_STORAGE_PATH;
         if (args.length == 1) {
             storagePath = args[0];
         }
@@ -28,4 +29,3 @@ public final class Main {
         }
     }
 }
-// TODO добавить команды, сделать работу со скриптом из файла, закончить коменты под javadoc

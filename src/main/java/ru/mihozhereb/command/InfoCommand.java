@@ -5,10 +5,6 @@ import ru.mihozhereb.control.Request;
 import ru.mihozhereb.control.Response;
 
 public class InfoCommand implements Command {
-    /**
-     * @param r
-     * @return
-     */
     @Override
     public Response execute(Request r) {
         StringBuilder b = new StringBuilder();
@@ -19,9 +15,6 @@ public class InfoCommand implements Command {
         return new Response(b.toString(), null);
     }
 
-    /**
-     * @return
-     */
     @Override
     public String getHelp() {
         return "info | print type, date of initialization, number of elements";

@@ -8,10 +8,6 @@ import ru.mihozhereb.control.Response;
 import java.util.Objects;
 
 public class UpdateCommand implements Command {
-    /**
-     * @param r
-     * @return
-     */
     @Override
     public Response execute(Request r) {
         CollectionManager c = CollectionManager.getInstance();
@@ -25,12 +21,9 @@ public class UpdateCommand implements Command {
 
         c.getCollection().removeIf(n -> n.getId().equals(id));
         c.getCollection().add(r.element());
-        return new Response("Done", null);
+        return new Response("Done.", null);
     }
 
-    /**
-     * @return
-     */
     @Override
     public String getHelp() {
         return "update id | update element where id = id";

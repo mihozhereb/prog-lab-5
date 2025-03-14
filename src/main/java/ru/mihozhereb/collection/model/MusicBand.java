@@ -2,7 +2,7 @@ package ru.mihozhereb.collection.model;
 
 import ru.mihozhereb.collection.utils.IdGenerator;
 
-import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -41,7 +41,7 @@ public class MusicBand implements Comparable<MusicBand> {
      * @restriction Поле не может быть null,
      * @restriction Значение этого поля должно генерироваться автоматически
      */
-    private final java.time.LocalDateTime creationDate;
+    private java.time.LocalDateTime creationDate;
 
     /**
      * MusicBand's number of participants
@@ -140,6 +140,19 @@ public class MusicBand implements Comparable<MusicBand> {
     }
 
     /**
+     * Set MusicBand's creation date
+     *
+     * @param creationDate MusicBand's creation date
+     * @throws IllegalArgumentException MusicBand's creation date can't be null
+     */
+    public void setCreationDate(LocalDateTime creationDate) {
+        if (creationDate == null) {
+            throw new IllegalArgumentException("MusicBand's creation date can't be null");
+        }
+        this.creationDate = creationDate;
+    }
+
+    /**
      * Get MusicBand's number of participants
      *
      * @return MusicBand's number of participants
@@ -156,7 +169,7 @@ public class MusicBand implements Comparable<MusicBand> {
      */
     public void setNumberOfParticipants(long numberOfParticipants) {
         if (numberOfParticipants <= 0) {
-            throw new IllegalArgumentException("MusicBand's number of participants can be greater than 0");
+            throw new IllegalArgumentException("MusicBand's number of participants must be greater than 0");
         }
         this.numberOfParticipants = numberOfParticipants;
     }
@@ -199,6 +212,10 @@ public class MusicBand implements Comparable<MusicBand> {
             throw new IllegalArgumentException("MusicBand's frontman can't be null");
         }
         this.frontMan = frontMan;
+    }
+
+    {
+        setId();
     }
 
     @Override

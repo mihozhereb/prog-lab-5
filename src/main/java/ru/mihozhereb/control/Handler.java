@@ -3,21 +3,31 @@ package ru.mihozhereb.control;
 import ru.mihozhereb.collection.model.MusicBand;
 import ru.mihozhereb.io.JsonWorker;
 
-import java.util.Arrays;
 import java.util.Optional;
 
-// TODO
 /**
  * Handler class
  */
 public class Handler {
+    /**
+     * The function processes the string, highlighting the command name, command arguments.
+     * If necessary, forms a new object from user input.
+     * Creates a {@code Request} object and sends a command for execution, then receives a {@code Response} object
+     * from {@code Router} and returns the result of execution in a string form understandable for the user.
+     *
+     * @param row user command
+     * @return result of execution in a string form understandable for the user
+     * @see Request
+     * @see Response
+     * @see Router
+     */
     public static String handle(String row) {
         String[] args = row.split(" ", 2);
 
-        InputHelper inputHelper = new InputHelper(new MusicBand());
         Optional<MusicBand> element = Optional.empty();
 
         if (row.contains("{element}")) {
+            InputHelper inputHelper = new InputHelper(new MusicBand());
             try {
                 element = Optional.ofNullable(inputHelper.input());
             } catch (InputCancelledException e) {

@@ -3,20 +3,16 @@ package ru.mihozhereb.collection.utils;
 import ru.mihozhereb.io.FileWorker;
 
 /**
- * ID generator class
- * <p>
- * Used singleton pattern
+ * ID generator singleton class
  */
 public final class IdGenerator {
     private IdGenerator() {  }
 
-    /**
-     * The only one instance of IdGenerator
-     */
     private static IdGenerator instance;
 
     /**
      * Return instance of {@code IdGenerator}
+     *
      * @return IdGenerator instance
      */
     public static IdGenerator getInstance() {
@@ -26,9 +22,13 @@ public final class IdGenerator {
         return instance;
     }
 
+    /**
+     * Generates a new id using the sequence saved in the file
+     *
+     * @return new id
+     */
     public int getNewId() {
-        // TODO поменять путь
-        String path = "src/main/java/ru/mihozhereb/collection/utils/ID_LOG";
+        String path = "ID_LOG";
         int previousId;
         try (FileWorker fileWorker = new FileWorker(path, true)) {
             previousId = Integer.parseInt(fileWorker.read());
