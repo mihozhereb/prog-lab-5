@@ -16,4 +16,9 @@ public class RemoveLowerCommand implements Command {
     public String getHelp() {
         return "remove_lower {element} | remove from the collection all items smaller than the specified value";
     }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.ENTER;
+    }
 }

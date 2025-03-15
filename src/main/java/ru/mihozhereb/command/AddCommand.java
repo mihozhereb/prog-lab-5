@@ -16,4 +16,9 @@ public class AddCommand implements Command {
     public String getHelp() {
         return "add {element} | add element in collection";
     }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.ENTER;
+    }
 }

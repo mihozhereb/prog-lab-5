@@ -22,4 +22,13 @@ public interface Command {
      * @return String command description
      */
     String getHelp();
+
+    /**
+     * Return a type of command (PRIMITIVE or ENTER)
+     *
+     * @return Command type
+     */
+    default CommandType getCommandType() {
+        return CommandType.PRIMITIVE;
+    }
 }

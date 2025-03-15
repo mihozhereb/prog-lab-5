@@ -15,11 +15,9 @@ public class ExecuteScriptCommand implements Command {
             while ((line = f.read()) != null) {
                 outputText.append(line).append("\n");
                 if (line.contains("execute_script")) {
-//                    consoleWorker.write("execute_script is banned inside the script!");
                     outputText.append("execute_script is banned inside the script!").append("\n");
                 }
 
-//                consoleWorker.write(Handler.handle(line));
                 outputText.append(Handler.handle(line));
             }
         } catch (Exception e) {

@@ -19,4 +19,9 @@ public class RemoveGreaterCommand implements Command {
     public String getHelp() {
         return "remove_greater {element} | remove all items from the collection that exceed the specified value";
     }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.ENTER;
+    }
 }

@@ -1,6 +1,7 @@
 package ru.mihozhereb.control;
 
 import ru.mihozhereb.collection.model.MusicBand;
+import ru.mihozhereb.command.CommandType;
 import ru.mihozhereb.io.JsonWorker;
 
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class Handler {
 
         Optional<MusicBand> element = Optional.empty();
 
-        if (row.contains("{element}")) {
+        if (CommandsMap.getCommandType(args[0]) == CommandType.ENTER) {
             InputHelper inputHelper = new InputHelper(new MusicBand());
             try {
                 element = Optional.ofNullable(inputHelper.input());

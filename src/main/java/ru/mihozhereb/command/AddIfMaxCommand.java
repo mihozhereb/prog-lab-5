@@ -24,4 +24,9 @@ public class AddIfMaxCommand implements Command {
         return "add_if_max {element} | add a new element to the collection if its value exceeds the value of the " +
                 "largest element of this collection";
     }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.ENTER;
+    }
 }

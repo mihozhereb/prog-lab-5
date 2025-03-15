@@ -26,6 +26,11 @@ public class UpdateCommand implements Command {
 
     @Override
     public String getHelp() {
-        return "update id | update element where id = id";
+        return "update id {element} | update element where id = id";
+    }
+
+    @Override
+    public CommandType getCommandType() {
+        return CommandType.ENTER;
     }
 }
