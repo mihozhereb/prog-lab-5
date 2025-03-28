@@ -34,6 +34,7 @@ dependencies {
 // add your lib dependencies here
 dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("commons-codec:commons-codec:1.18.0")
 }
 
 tasks.check {

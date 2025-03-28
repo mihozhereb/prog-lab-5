@@ -1,6 +1,8 @@
 package ru.mihozhereb;
 
 import ru.mihozhereb.collection.CollectionManager;
+import ru.mihozhereb.collection.StorageBrokenException;
+import ru.mihozhereb.collection.StorageIsNullException;
 import ru.mihozhereb.control.Handler;
 import ru.mihozhereb.io.ConsoleWorker;
 
@@ -18,9 +20,15 @@ public final class Main {
             storagePath = args[0];
         }
         CollectionManager.getInstance().setPath(storagePath);
-        CollectionManager.getInstance().load();
 
         try (ConsoleWorker consoleWorker = new ConsoleWorker()) {
+            try {
+                CollectionManager.getInstance().load();
+            } catch (StorageBrokenException e) {
+                consoleWorker.writeLn("Storage is broken, load empty collection.");
+            } catch (StorageIsNullException e) {
+                consoleWorker.writeLn("Storage or hash is null, load empty collection.");
+            }
             consoleWorker.writeLn("Welcome!");
             String line;
             while ((line = consoleWorker.read()) != null) {

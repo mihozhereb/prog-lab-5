@@ -1,9 +1,13 @@
 package ru.mihozhereb.collection.model;
 
 import ru.mihozhereb.collection.utils.IdGenerator;
+import ru.mihozhereb.io.Formatters;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -236,26 +240,36 @@ public class MusicBand implements Comparable<MusicBand> {
 
     @Override
     public String toString() {
-        return "MusicBand{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", coordinates=" + coordinates +
-                ", creationDate=" + creationDate +
-                ", numberOfParticipants=" + numberOfParticipants +
-                ", genre=" + genre +
-                ", frontMan=" + frontMan +
-                '}';
+        return "{" +
+                System.lineSeparator() + "\tid=" + id + "," +
+                System.lineSeparator() + "\tname='" + name + '\'' + "," +
+                System.lineSeparator() + "\tcoordinates.x=" + coordinates.getX() + "," +
+                System.lineSeparator() + "\tcoordinates.y=" + coordinates.getY() + "," +
+                System.lineSeparator() + "\tcreationDate=" + creationDate.format(Formatters.DATETIME.get()) + "," +
+                System.lineSeparator() + "\tnumberOfParticipants=" + numberOfParticipants + "," +
+                System.lineSeparator() + "\tgenre=" + genre + "," +
+                System.lineSeparator() + "\tfrontMan.name='" + frontMan.getName() + '\'' + "," +
+                System.lineSeparator() + "\tfrontMan.birthday=" +
+                frontMan.getBirthday().format(Formatters.DATE.get()) + "," +
+                System.lineSeparator() + "\tfrontMan.height=" + frontMan.getHeight() + "," +
+                System.lineSeparator() + "\tfrontMan.weight=" + frontMan.getWeight() + "," +
+                System.lineSeparator() + "\tfrontMan.hairColor=" + frontMan.getHairColor() + "," +
+                System.lineSeparator() + '}';
     }
 
     /**
      * Compares MusicBand's objects in alphabetical order
      *
-     * @param o the object to be compared.
+     * @param other the object to be compared.
      * @return a negative integer, zero, or a positive integer as this object is less than, equal to,
      *         or greater than the specified object.
      */
     @Override
-    public int compareTo(MusicBand o) {
-        return this.name.compareTo(o.name);
+    public int compareTo(MusicBand other) {
+        int result = this.name.compareToIgnoreCase(other.name);
+        if (result != 0) return result;
+        result = this.frontMan.getName().compareToIgnoreCase(other.frontMan.getName());
+        if (result != 0) return result;
+        return Long.compare(this.numberOfParticipants, other.numberOfParticipants);
     }
 }

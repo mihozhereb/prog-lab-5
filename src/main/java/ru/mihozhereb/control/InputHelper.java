@@ -2,9 +2,11 @@ package ru.mihozhereb.control;
 
 import ru.mihozhereb.collection.model.*;
 import ru.mihozhereb.io.ConsoleWorker;
+import ru.mihozhereb.io.Formatters;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 /**
@@ -71,11 +73,16 @@ public class InputHelper {
 
     private void inputCreationDate() throws InputCancelledException {
         while (true) {
-            consoleWorker.writeLn("Enter MusicBand's creation date (format 2007-12-03T10:15:30): ");
+            consoleWorker.writeLn("Enter MusicBand's creation date (format \"" +
+                    LocalDateTime.now().format(Formatters.DATETIME.get()) + "\"): ");
             try {
-                musicBand.setCreationDate(LocalDateTime.parse(getConsoleInput()));
+                musicBand.setCreationDate(LocalDateTime.parse(getConsoleInput(), Formatters.DATETIME.get()));
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
+                continue;
+            } catch (DateTimeParseException e) {
+                consoleWorker.writeLn("Invalid format. Format must be like \"" +
+                        LocalDateTime.now().format(Formatters.DATETIME.get()) + "\"");
                 continue;
             }
             break;
@@ -124,11 +131,16 @@ public class InputHelper {
 
     private void inputBirthday() throws InputCancelledException {
         while (true) {
-            consoleWorker.writeLn("Enter FrontMan's birthday (format 2007-12-03): ");
+            consoleWorker.writeLn("Enter FrontMan's birthday (format \"" +
+                    LocalDate.now().format(Formatters.DATE.get()) + "\"): ");
             try {
-                musicBand.getFrontMan().setBirthday(LocalDate.parse(getConsoleInput()));
+                musicBand.getFrontMan().setBirthday(LocalDate.parse(getConsoleInput(), Formatters.DATE.get()));
             } catch (IllegalArgumentException e) {
                 consoleWorker.writeLn("Invalid argument. " + e.getLocalizedMessage());
+                continue;
+            } catch (DateTimeParseException e) {
+                consoleWorker.writeLn("Invalid format. Format must be like \"" +
+                        LocalDate.now().format(Formatters.DATE.get()) + "\"");
                 continue;
             }
             break;

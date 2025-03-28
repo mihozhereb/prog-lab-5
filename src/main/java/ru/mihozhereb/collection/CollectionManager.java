@@ -1,10 +1,15 @@
 package ru.mihozhereb.collection;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import ru.mihozhereb.collection.model.MusicBand;
+import ru.mihozhereb.io.FileWorker;
 import ru.mihozhereb.io.JsonWorker;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.TreeSet;
 
 /**
@@ -43,15 +48,25 @@ public final class CollectionManager {
     /**
      * Load collection from file
      */
-    public void load() {
-        try (JsonWorker storage = new JsonWorker(path)) {
-            if (storage.ready()) {
+    public void load() throws StorageBrokenException, StorageIsNullException {
+        try (JsonWorker storage = new JsonWorker(path);
+             FileWorker hashStorage = new FileWorker("STORAGE_HASH", true)) {
+            if (storage.ready() && hashStorage.ready()) {
                 MusicBand[] storageInner = storage.read();
-                if (storageInner != null) {
-                    COLLECTION.addAll(List.of(storageInner));
+
+                if (storageInner == null) {
+                    return;
                 }
+
+                String fileHash = DigestUtils.sha256Hex(Arrays.toString(storageInner) + "MY SUPER SECRET PEPPER");
+
+                if (!Objects.equals(hashStorage.read(), fileHash)) {
+                    throw new StorageBrokenException("Collection's storage broken");
+                }
+
+                COLLECTION.addAll(List.of(storageInner));
             } else {
-                throw new RuntimeException("Collection's storage file is not ready");
+                throw new StorageIsNullException("Collection's storage or hash file is not ready");
             }
         }
     }
@@ -60,12 +75,10 @@ public final class CollectionManager {
      * Save collection in file (json format)
      */
     public void save() {
-        try (JsonWorker storage = new JsonWorker(path)) {
-            if (storage.ready()) {
-                storage.write(COLLECTION.toArray(new MusicBand[0]));
-            } else {
-                throw new RuntimeException("Collection's storage file is not ready");
-            }
+        try (JsonWorker storage = new JsonWorker(path);
+             FileWorker hashStorage = new FileWorker("STORAGE_HASH", false)) {
+            storage.write(COLLECTION.toArray(new MusicBand[0]));
+            hashStorage.write(DigestUtils.sha256Hex(COLLECTION + "MY SUPER SECRET PEPPER"));
         }
     }
 

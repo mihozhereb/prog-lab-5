@@ -39,12 +39,14 @@ public class Handler {
         Request req = new Request(args[0], args.length == 2 ? args[1] : null, element.orElse(null));
         Response resp = Router.route(req);
 
-        String responseText = resp.response() + System.lineSeparator();
+        StringBuilder responseText = new StringBuilder(resp.response()).append(System.lineSeparator());
 
         if (resp.elements() != null) {
-            responseText += JsonWorker.toJsonFormat(resp.elements()) + System.lineSeparator();
+            for (MusicBand m : resp.elements()) {
+                responseText.append(m.toString()).append(",").append(System.lineSeparator());
+            }
         }
 
-        return responseText;
+        return responseText.toString();
     }
 }
