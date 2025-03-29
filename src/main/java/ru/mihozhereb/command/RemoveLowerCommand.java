@@ -7,7 +7,7 @@ import ru.mihozhereb.control.Response;
 public class RemoveLowerCommand implements Command {
     @Override
     public Response execute(Request r) {
-        CollectionManager.getInstance().getCollection().removeIf(i -> r.element().compareTo(i) < 0);
+        CollectionManager.getInstance().getCollection().removeIf(i -> r.element().compareTo(i) > 0);
 
         return new Response("Done.", null);
     }

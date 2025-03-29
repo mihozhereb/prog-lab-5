@@ -32,7 +32,7 @@ public final class Main {
             consoleWorker.writeLn("Welcome!");
             String line;
             while ((line = consoleWorker.read()) != null) {
-                consoleWorker.write(Handler.handle(line));
+                consoleWorker.write(Handler.handle(line, consoleWorker));
             }
         }
     }

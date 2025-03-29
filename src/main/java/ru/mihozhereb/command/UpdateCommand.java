@@ -20,6 +20,7 @@ public class UpdateCommand implements Command {
         }
 
         c.getCollection().removeIf(n -> n.getId().equals(id));
+        r.element().setIdManually(id);
         c.getCollection().add(r.element());
         return new Response("Done.", null);
     }

@@ -6,25 +6,64 @@ import ru.mihozhereb.control.Response;
 import ru.mihozhereb.io.ConsoleWorker;
 import ru.mihozhereb.io.FileWorker;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class ExecuteScriptCommand implements Command {
+    private static int recursionCounter = 0;
+
     @Override
     public Response execute(Request r) {
-        StringBuilder outputText = new StringBuilder();
-        try (FileWorker f = new FileWorker(r.argument(), true)) {
-            String line;
-            while ((line = f.read()) != null) {
-                outputText.append(line).append("\n");
-                if (line.contains("execute_script")) {
-                    outputText.append("execute_script is banned inside the script!").append("\n");
-                }
+        InputStream originalSystemIn = System.in;
 
-                outputText.append(Handler.handle(line));
-            }
-        } catch (Exception e) {
-            return new Response("Error. " + e.getLocalizedMessage(), null);
+        recursionCounter++;
+
+        if (recursionCounter > 5) {
+            return new Response("Error. Recursion limit", null);
         }
 
-        return new Response(outputText + "Done.", null);
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(r.argument());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.setIn(fis);
+
+        ConsoleWorker consoleWorker = new ConsoleWorker();
+
+        while (consoleWorker.ready()) {
+            String line = consoleWorker.read();
+            consoleWorker.writeLn(line);
+            consoleWorker.write(Handler.handle(line, consoleWorker));
+        }
+//        consoleWorker.close();
+        try {
+            fis.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.setIn(originalSystemIn);
+        recursionCounter--;
+//        StringBuilder outputText = new StringBuilder();
+//        try (FileWorker f = new FileWorker(r.argument(), true)) {
+//            String line;
+//            while ((line = f.read()) != null) {
+//                outputText.append(line).append("\n");
+//                if (line.contains("execute_script")) {
+//                    outputText.append("execute_script is banned inside the script!").append("\n");
+//                }
+//
+//                outputText.append(Handler.handle(line));
+//            }
+//        } catch (Exception e) {
+//            return new Response("Error. " + e.getLocalizedMessage(), null);
+//        }
+
+        return new Response("Done.", null);
     }
 
     @Override

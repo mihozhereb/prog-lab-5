@@ -89,6 +89,13 @@ public class MusicBand implements Comparable<MusicBand> {
     }
 
     /**
+     * Set MusicBand's ID manually
+     */
+    public void setIdManually(Integer id) {
+        this.id = id;
+    }
+
+    /**
      * Get MusicBand's name
      *
      * @return MusicBand's name

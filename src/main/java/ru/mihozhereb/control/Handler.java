@@ -2,6 +2,7 @@ package ru.mihozhereb.control;
 
 import ru.mihozhereb.collection.model.MusicBand;
 import ru.mihozhereb.command.CommandType;
+import ru.mihozhereb.io.ConsoleWorker;
 import ru.mihozhereb.io.JsonWorker;
 
 import java.util.Optional;
@@ -22,13 +23,13 @@ public class Handler {
      * @see Response
      * @see Router
      */
-    public static String handle(String row) {
+    public static String handle(String row, ConsoleWorker cw) {
         String[] args = row.split(" ", 2);
 
         Optional<MusicBand> element = Optional.empty();
 
         if (CommandsMap.getCommandType(args[0]) == CommandType.ENTER) {
-            InputHelper inputHelper = new InputHelper(new MusicBand());
+            InputHelper inputHelper = new InputHelper(new MusicBand(), cw);
             try {
                 element = Optional.ofNullable(inputHelper.input());
             } catch (InputCancelledException e) {

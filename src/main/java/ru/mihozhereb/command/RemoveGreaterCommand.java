@@ -10,7 +10,7 @@ import java.util.SortedSet;
 public class RemoveGreaterCommand implements Command {
     @Override
     public Response execute(Request r) {
-        CollectionManager.getInstance().getCollection().removeIf(i -> r.element().compareTo(i) > 0);
+        CollectionManager.getInstance().getCollection().removeIf(i -> r.element().compareTo(i) < 0);
 
         return new Response("Done.", null);
     }

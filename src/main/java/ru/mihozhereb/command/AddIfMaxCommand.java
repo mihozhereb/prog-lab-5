@@ -12,7 +12,7 @@ public class AddIfMaxCommand implements Command {
     public Response execute(Request r) {
         SortedSet<MusicBand> collection = CollectionManager.getInstance().getCollection();
 
-        if (collection.last().compareTo(r.element()) > 0) {
+        if (collection.last().compareTo(r.element()) < 0) {
             collection.add(r.element());
         }
 

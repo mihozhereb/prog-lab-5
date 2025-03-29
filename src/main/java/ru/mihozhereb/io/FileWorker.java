@@ -18,6 +18,7 @@ public class FileWorker implements StringIOWorker {
      */
     public FileWorker(String path, boolean appendMode) {
         try {
+            new File(path).createNewFile();
             fileReader = new BufferedReader(new FileReader(path));
             fileWriter = new OutputStreamWriter(new FileOutputStream(path, appendMode));
         } catch (IOException e) {

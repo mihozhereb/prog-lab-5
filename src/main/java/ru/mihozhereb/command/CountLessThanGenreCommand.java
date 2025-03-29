@@ -19,7 +19,7 @@ public class CountLessThanGenreCommand implements Command {
         int counter = 0;
 
         for (MusicBand i : CollectionManager.getInstance().getCollection()) {
-            if (i.getGenre().compareTo(genre) < 0) {
+            if (i.getGenre() != null && i.getGenre().compareTo(genre) < 0) {
                 counter++;
             }
         }
