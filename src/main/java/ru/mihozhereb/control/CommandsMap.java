@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Storage of commands
+ */
 public class CommandsMap {
     private static final Map<String, Command> COMMANDS = new HashMap<>();
 
@@ -28,14 +31,31 @@ public class CommandsMap {
                 new PrintFieldAscendingNumberOfParticipantsCommand());
     }
 
+    /**
+     * Get command by its name
+     *
+     * @param commandName Command name
+     * @return Command
+     */
     public static Command getCommand(String commandName) {
         return COMMANDS.get(commandName);
     }
 
+    /**
+     * Get command's type (ENTER or PRIMITIVE)
+     *
+     * @param commandName Command name
+     * @return Commands's type
+     * @see CommandType
+     */
     public static CommandType getCommandType(String commandName) {
         return COMMANDS.get(commandName) == null ? null : COMMANDS.get(commandName).getCommandType();
     }
 
+    /**
+     * Get full command's storage
+     * @return Command's collection
+     */
     public static Collection<Command> getValues() {
         return COMMANDS.values();
     }

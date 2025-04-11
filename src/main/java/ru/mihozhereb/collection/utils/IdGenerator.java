@@ -27,14 +27,19 @@ public final class IdGenerator {
      *
      * @return new id
      */
-    public int getNewId() {
+    public int getNewId(int lastIdInCollection) {
         String path = "ID_LOG";
         int previousId;
         try (FileWorker fileWorker = new FileWorker(path, true)) {
             previousId = Integer.parseInt(fileWorker.read());
         } catch (NumberFormatException e) {
-            return -1;
+            previousId = -1;
         }
+
+        if (lastIdInCollection > previousId) {
+            previousId = lastIdInCollection;
+        }
+
         try (FileWorker fileWorker = new FileWorker(path, false)) {
             fileWorker.write(String.valueOf(previousId + 1));
             return previousId + 1;

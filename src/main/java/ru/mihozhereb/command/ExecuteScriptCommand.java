@@ -28,7 +28,7 @@ public class ExecuteScriptCommand implements Command {
         try {
             fis = new FileInputStream(r.argument());
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            return new Response("Error. File not found", null);
         }
 
         System.setIn(fis);
@@ -40,7 +40,6 @@ public class ExecuteScriptCommand implements Command {
             consoleWorker.writeLn(line);
             consoleWorker.write(Handler.handle(line, consoleWorker));
         }
-//        consoleWorker.close();
         try {
             fis.close();
         } catch (IOException e) {
@@ -48,20 +47,6 @@ public class ExecuteScriptCommand implements Command {
         }
         System.setIn(originalSystemIn);
         recursionCounter--;
-//        StringBuilder outputText = new StringBuilder();
-//        try (FileWorker f = new FileWorker(r.argument(), true)) {
-//            String line;
-//            while ((line = f.read()) != null) {
-//                outputText.append(line).append("\n");
-//                if (line.contains("execute_script")) {
-//                    outputText.append("execute_script is banned inside the script!").append("\n");
-//                }
-//
-//                outputText.append(Handler.handle(line));
-//            }
-//        } catch (Exception e) {
-//            return new Response("Error. " + e.getLocalizedMessage(), null);
-//        }
 
         return new Response("Done.", null);
     }

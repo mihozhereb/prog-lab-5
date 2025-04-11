@@ -29,11 +29,11 @@ public class Handler {
         Optional<MusicBand> element = Optional.empty();
 
         if (CommandsMap.getCommandType(args[0]) == CommandType.ENTER) {
-            InputHelper inputHelper = new InputHelper(new MusicBand(), cw);
+            InputHelper inputHelper = new InputHelper(cw);
             try {
                 element = Optional.ofNullable(inputHelper.input());
             } catch (InputCancelledException e) {
-                return e.getLocalizedMessage();
+                return e.getLocalizedMessage() + System.lineSeparator();
             }
         }
 

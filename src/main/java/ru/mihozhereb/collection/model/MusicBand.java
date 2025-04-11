@@ -84,8 +84,8 @@ public class MusicBand implements Comparable<MusicBand> {
     /**
      * Set MusicBand's ID
      */
-    public void setId() {
-        id = IdGenerator.getInstance().getNewId();
+    public void setId(int lastIdInCollection) {
+        id = IdGenerator.getInstance().getNewId(lastIdInCollection);
     }
 
     /**
@@ -223,10 +223,6 @@ public class MusicBand implements Comparable<MusicBand> {
             throw new IllegalArgumentException("MusicBand's frontman can't be null");
         }
         this.frontMan = frontMan;
-    }
-
-    {
-        setId();
     }
 
     @Override

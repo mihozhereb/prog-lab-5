@@ -98,4 +98,8 @@ public final class CollectionManager {
     public LocalDateTime getCreationDateTime() {
         return CREATION_DATE_TIME;
     }
+
+    public int getLastIdInCollection() {
+        return COLLECTION.stream().mapToInt(MusicBand::getId).max().orElse(0);
+    }
 }
